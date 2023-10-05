@@ -30,7 +30,61 @@ jobs:
     steps:
       - name: Deploy to Test Environment
         run: |
-          # Add your deployment script or commands here
+          # Add your deployment script here
           echo "Deploying to the test environment..."
         env:
           SOME_SECRET: ${{ secrets.SECRET_KEY }}
+          
+name: Bandit Static Code Analysis
+
+on:
+  push:
+    branches:
+      - main  # Adjust to match your repository's default branch
+
+jobs:
+  bandit:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.2
+
+      - name: Install Bandit
+        run: pip install bandit
+
+      - name: Run Bandit
+        run: bandit -r . -f json -o bandit-results.json
+
+      - name: Upload Bandit Results
+        uses: actions/upload-artifact@v2
+        with:
+          name: bandit-results
+          path: bandit-results.json
+name: Burp Suite DAST Scan
+
+on:
+  push:
+    branches:
+      - main  # Replace with your desired branch
+
+jobs:
+  burp_scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Run Burp Suite Scan
+        run: |
+          # Install Burp Suite Professional on your virtual machine or server
+          # Configure Burp Suite for your scan
+          # Run Burp Suite in headless mode
+        env:
+          BURP_SUITE_API_TOKEN: ${{ secrets.BURP_SUITE_API_TOKEN }}  # If you use an API token
