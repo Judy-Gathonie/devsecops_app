@@ -1,0 +1,36 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main  # Replace with your branch name
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x  # Specify your Python version
+
+      - name: Install Dependencies
+        run: pip install -r requirements.txt  # Adjust as needed
+
+      - name: Run Tests
+        run: pytest  # Adjust as needed
+
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy to Test Environment
+        run: |
+          # Add your deployment script or commands here
+          echo "Deploying to the test environment..."
+        env:
+          SOME_SECRET: ${{ secrets.SECRET_KEY }}
