@@ -3,7 +3,7 @@ name: CI/CD Pipeline
 on:
   push:
     branches:
-      - main  # Replace with your branch name
+      - my-desecops-app  # Replace with your branch name
 
 jobs:
   build:
@@ -40,7 +40,7 @@ name: Bandit Static Code Analysis
 on:
   push:
     branches:
-      - main  # Adjust to match your repository's default branch
+      - my-desecops-app  # Adjust to match your repository's default branch
 
 jobs:
   bandit:
@@ -71,7 +71,7 @@ name: Burp Suite DAST Scan
 on:
   push:
     branches:
-      - main  # Replace with your desired branch
+      - my-desecops-app  # Replace with your desired branch
 
 jobs:
   burp_scan:
